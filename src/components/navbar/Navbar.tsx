@@ -13,35 +13,35 @@ const Navbar = () => {
 
         <div className="flex space-x-6">
           <Link
-            to="/"
+            to="/postagens"
             className="hover:text-[#e0a3ad] transition duration-300 ease-in-out hover:-translate-y-1"
           >
             Postagens
           </Link>
 
           <Link
-            to="/"
+            to="/temas"
             className="hover:text-[#e0a3ad] transition duration-300 ease-in-out hover:-translate-y-1"
           >
             Temas
           </Link>
 
           <Link
-            to="/"
-            className="hover:text-[#e0a3ad] transition duration-300 ease-in-out hover:-translate-y-1"
-          >
-            Perfil
-          </Link>
-
-          <Link
-            to="/"
+            to="/cadastrar_tema"
             className="hover:text-[#e0a3ad] transition duration-300 ease-in-out hover:-translate-y-1"
           >
             Cadastrar Tema
           </Link>
 
           <Link
-            to="/"
+            to="/perfil"
+            className="hover:text-[#e0a3ad] transition duration-300 ease-in-out hover:-translate-y-1"
+          >
+            Perfil
+          </Link>
+
+          <Link
+            to="/loggout"
             className="hover:text-[#e0a3ad] transition duration-300 ease-in-out hover:-translate-y-1"
           >
             Sair
