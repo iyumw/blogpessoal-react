@@ -38,7 +38,7 @@ const Navbar = () => {
           </Link>
 
           <Link
-            to="/cadastrar_tema"
+            to="/cadastrartema"
             className="hover:text-[#e0a3ad] transition duration-300 ease-in-out hover:-translate-y-1"
           >
             Cadastrar Tema
