@@ -101,41 +101,51 @@ function FormTema() {
   }, [id]);
 
   return (
-    <div className="container flex flex-col items-center justify-center mx-auto">
+    <div className="min-h-[90vh] bg-rose-50 flex flex-col items-center justify-center p-6">
       {/* Título condicional */}
-      <h1 className="text-4xl text-center my-8">
+      <h1 className="text-4xl text-purple font-bold text-center mb-8">
         {id !== undefined ? "Editar Tema" : "Cadastrar Tema"}
       </h1>
 
-      <form className="w-1/2 flex flex-col gap-4" onSubmit={gerarNovoTema}>
-        <div className="flex flex-col gap-2">
-          <label htmlFor="descricao">Descrição do Tema</label>
-          <input
-            type="text"
-            placeholder="Descreva aqui seu tema"
-            name="descricao"
-            className="border-2 border-slate-700 rounded p-2"
-            value={tema.descricao || ""} // Exibe a descrição existente ou uma string vazia
-            onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-          />
-        </div>
-        <button
-          className="rounded text-slate-100 bg-indigo-400 
-                               hover:bg-indigo-800 w-1/2 py-2 mx-auto flex justify-center"
-          type="submit"
-        >
-          {isLoading ? (
-            <RotatingLines
-              strokeColor="white"
-              strokeWidth="5"
-              animationDuration="0.75"
-              width="24"
-              visible={true}
+      <form
+        className="w-full max-w-2xl bg-rose-100 p-8 rounded-lg shadow-lg"
+        onSubmit={gerarNovoTema}
+      >
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            <label htmlFor="descricao" className="text-gray font-semibold">
+              Descrição do Tema
+            </label>
+            <input
+              type="text"
+              placeholder="Descreva aqui seu tema"
+              name="descricao"
+              className="border-2 border-pink-200 rounded p-2 focus:outline-none focus:border-blush-100"
+              value={tema.descricao || ""} // Exibe a descrição existente ou uma string vazia
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                atualizarEstado(e)
+              }
             />
-          ) : (
-            <span>{id !== undefined ? "Atualizar" : "Cadastrar"}</span>
-          )}
-        </button>
+          </div>
+          <button
+            className="rounded text-white bg-blush-100 hover:bg-blush-50 
+                               w-full py-3 mt-4 flex justify-center items-center transition-colors"
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <RotatingLines
+                strokeColor="white"
+                strokeWidth="5"
+                animationDuration="0.75"
+                width="24"
+                visible={true}
+              />
+            ) : (
+              <span>{id !== undefined ? "Atualizar" : "Cadastrar"}</span>
+            )}
+          </button>
+        </div>
       </form>
     </div>
   );

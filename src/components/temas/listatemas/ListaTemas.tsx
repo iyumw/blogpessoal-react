@@ -4,17 +4,14 @@ import { AuthContext } from "../../../contexts/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import Tema from "../../../models/Tema";
 import { buscar } from "../../../services/Service";
-import { DNA } from "react-loader-spinner";
+import { BeatLoader } from "react-spinners";
 
 function ListaTemas() {
   const navigate = useNavigate();
-
-  // recebe todos os temas exisetntes em um array
   const [temas, setTemas] = useState<Tema[]>([]);
   const { usuario, handleLogout } = useContext(AuthContext);
   const token = usuario.token;
 
-  // função que carrega os temas do backend
   async function buscarTemas() {
     try {
       await buscar("/temas", setTemas, {
@@ -22,6 +19,9 @@ function ListaTemas() {
           Authorization: token,
         },
       });
+      setTemas((prevTemas) =>
+        [...prevTemas].sort((a, b) => a.descricao.localeCompare(b.descricao))
+      );
     } catch (error: any) {
       if (error.toString().includes("401")) {
         handleLogout();
@@ -41,30 +41,25 @@ function ListaTemas() {
   }, [temas.length]);
 
   return (
-    <>
-      {temas.length === 0 && (
-        <DNA
-          visible={true}
-          height="200"
-          width="200"
-          ariaLabel="dna-loading"
-          wrapperStyle={{}}
-          wrapperClass="dna-wrapper mx-auto"
-        />
-      )}
-      <div className="flex justify-center w-full my-4">
-        <div className="container flex flex-col">
-          <div
-            className="grid grid-cols-1 md:grid-cols-2 
-                                    lg:grid-cols-3 gap-8 px-2"
-          >
-            {temas.map((tema: Tema) => (
+    <div className="min-h-screen bg-rose-50 p-6">
+      {temas.length === 0 ? (
+        <div className="flex justify-center items-center h-screen">
+          <BeatLoader color="#4a154b" />
+        </div>
+      ) : (
+        <div className="container mx-auto">
+          <h1 className="text-4xl text-purple font-bold text-center my-8">
+            Lista de Temas
+          </h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+            {temas.map((tema) => (
               <CardTemas key={tema.id} tema={tema} />
             ))}
           </div>
         </div>
-      </div>
-    </>
+      )}
+    </div>
   );
 }
+
 export default ListaTemas;

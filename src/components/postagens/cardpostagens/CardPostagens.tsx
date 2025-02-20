@@ -8,25 +8,25 @@ interface CardPostagensProps {
 function CardPostagem({ postagem }: CardPostagensProps) {
   return (
     <div
-      className="border-slate-900 border 
-            flex flex-col rounded overflow-hidden justify-between"
+      className="border border-pink-200 
+            flex flex-col rounded overflow-hidden justify-between bg-rose-50"
     >
       <div>
-        <div className="flex w-full bg-indigo-400 py-2 px-4 items-center gap-4">
+        <div className="flex w-full bg-pink-100 py-2 px-4 items-center gap-4">
           <img
             src={postagem.usuario?.foto}
             className="h-12 rounded-full"
             alt={postagem.usuario?.nome}
           />
-          <h3 className="text-lg font-bold text-center uppercase">
+          <h3 className="text-lg font-bold text-center uppercase text-gray">
             {postagem.usuario?.nome}
           </h3>
         </div>
-        <div className="p-4 ">
-          <h4 className="text-lg font-semibold uppercase">{postagem.titulo}</h4>
-          <p>{postagem.conteudo}</p>
-          <p>Tema: {postagem.tema?.descricao}</p>
-          <p>
+        <div className="p-4 bg-rose-100">
+          <h4 className="text-lg font-semibold uppercase text-purple">{postagem.titulo}</h4>
+          <p className="text-gray-50">{postagem.conteudo}</p>
+          <p className="text-gray-50">Tema: {postagem.tema?.descricao}</p>
+          <p className="text-gray-50">
             Data:{" "}
             {new Intl.DateTimeFormat(undefined, {
               dateStyle: "full",
@@ -38,15 +38,14 @@ function CardPostagem({ postagem }: CardPostagensProps) {
       <div className="flex">
         <Link
           to={`/editarpostagem/${postagem.id}`}
-          className="w-full text-slate-100 bg-indigo-400 hover:bg-indigo-800 
+          className="w-full text-slate-100 bg-blush-100 hover:bg-blush-50 
     flex items-center justify-center py-2"
         >
           <button>Editar</button>
         </Link>
         <Link
           to={`/deletarpostagem/${postagem.id}`}
-          className="text-white bg-red-400 
-                    hover:bg-red-700 w-full flex items-center justify-center"
+          className="text-white bg-danger hover:bg-danger-100 w-full flex items-center justify-center"
         >
           <button>Deletar</button>
         </Link>

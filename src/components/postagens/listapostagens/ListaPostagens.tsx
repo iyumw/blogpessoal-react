@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import Postagem from "../../../models/Postagem";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { buscar } from "../../../services/Service";
-import { DNA } from "react-loader-spinner";
+import { BeatLoader } from "react-spinners";
 
 function ListaPostagens() {
   const navigate = useNavigate();
@@ -40,21 +40,16 @@ function ListaPostagens() {
   return (
     <>
       {postagens.length === 0 && (
-        <DNA
-          visible={true}
-          height="200"
-          width="200"
-          ariaLabel="dna-loading"
-          wrapperStyle={{}}
-          wrapperClass="dna-wrapper mx-auto"
-        />
+        <div className="flex justify-center items-center h-screen">
+          <BeatLoader color="#4a154b" />
+        </div>
       )}
       <div className="flex justify-center w-full my-4">
         <div className="container flex flex-col mx-2">
           <div
             className="container mx-auto my-4 
-                        grid grid-cols-1 md:grid-cols-2 
-                        lg:grid-cols-3 gap-4"
+                          grid grid-cols-1 md:grid-cols-2 
+                          lg:grid-cols-3 gap-4"
           >
             {postagens.map((postagem) => (
               <CardPostagens key={postagem.id} postagem={postagem} />

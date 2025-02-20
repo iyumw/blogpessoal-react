@@ -48,6 +48,10 @@ function FormPostagem() {
       await buscar("/temas", setTemas, {
         headers: { Authorization: token },
       });
+      // Ordena os temas em ordem alfabética
+      setTemas((prevTemas) =>
+        [...prevTemas].sort((a, b) => a.descricao.localeCompare(b.descricao))
+      );
     } catch (error: any) {
       if (error.toString().includes("403")) {
         handleLogout();
@@ -91,105 +95,106 @@ function FormPostagem() {
   }
 
   async function gerarNovaPostagem(e: ChangeEvent<HTMLFormElement>) {
-  e.preventDefault();
-  setIsLoading(true);
+    e.preventDefault();
+    setIsLoading(true);
 
-  // Monta o objeto postagem com todos os campos obrigatórios
-  const novaPostagem = {
-    ...postagem,
-    tema: tema,
-    usuario: usuario,
-  };
+    const novaPostagem = {
+      ...postagem,
+      tema: tema,
+      usuario: usuario,
+    };
 
-  try {
-    if (id !== undefined) {
-      await atualizar(`/postagens`, postagem, setPostagem, {
-        headers: {
-          Authorization: token,
-        },
-      });
-      alert("Postagem atualizada com sucesso");
-    } else {
-      await cadastrar(`/postagens`, postagem, setPostagem, {
-        headers: {
-          Authorization: token,
-        },
-      });
-      alert("Postagem cadastrada com sucesso");
+    try {
+      if (id !== undefined) {
+        await atualizar(`/postagens`, postagem, setPostagem, {
+          headers: {
+            Authorization: token,
+          },
+        });
+        alert("Postagem atualizada com sucesso");
+      } else {
+        await cadastrar(`/postagens`, postagem, setPostagem, {
+          headers: {
+            Authorization: token,
+          },
+        });
+        alert("Postagem cadastrada com sucesso");
+      }
+    } catch (error: any) {
+      console.error("Erro completo:", error);
+      if (error.response) {
+        alert(`Erro: ${error.response.data.message || error.response.data}`);
+      } else if (error.request) {
+        alert("Erro: Nenhuma resposta recebida do servidor.");
+      } else {
+        alert("Erro ao processar a requisição.");
+      }
     }
-  } catch (error: any) {
-    console.error("Erro completo:", error); // Exibe o erro completo no console para depuração
-  
-    // Verifica se o erro tem uma resposta do servidor
-    if (error.response) {
-      // Exibe a mensagem de erro do servidor
-      alert(`Erro: ${error.response.data.message || error.response.data}`);
-    } else if (error.request) {
-      // Exibe uma mensagem genérica se a requisição foi feita, mas não houve resposta
-      alert("Erro: Nenhuma resposta recebida do servidor.");
-    } else {
-      // Exibe uma mensagem genérica para outros tipos de erro
-      alert("Erro ao processar a requisição.");
-    }
+
+    setIsLoading(false);
+    retornar();
   }
-
-  setIsLoading(false);
-  retornar();
-}
 
   const carregandoTema = tema.descricao === "";
 
   return (
-    <div className="container flex flex-col mx-auto items-center">
-      <h1 className="text-4xl text-center my-8">Cadastrar Postagem</h1>
+    <div className="container flex flex-col mx-auto items-center bg-rose-50 p-8 rounded-lg shadow-lg max-w-2xl">
+      <h1 className="text-4xl text-center my-8 text-purple font-bold">
+        {id !== undefined ? "Editar Postagem" : "Cadastrar Postagem"}
+      </h1>
 
-      <form className="flex flex-col w-1/2 gap-4" onSubmit={gerarNovaPostagem}>
+      <form className="flex flex-col w-full gap-6" onSubmit={gerarNovaPostagem}>
         <div className="flex flex-col gap-2">
-          <label htmlFor="titulo">Título da Postagem</label>
+          <label htmlFor="titulo" className="text-gray font-semibold">
+            Título da Postagem
+          </label>
           <input
             type="text"
-            placeholder="Titulo"
+            placeholder="Título"
             name="titulo"
             required
-            className="border-2 border-slate-700 rounded p-2"
+            className="border-2 border-pink-200 rounded p-2 focus:outline-none focus:border-blush-100"
             value={postagem.titulo}
             onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="titulo">Texto da Postagem</label>
-          <input
-            type="text"
+          <label htmlFor="conteudo" className="text-gray font-semibold">
+            Texto da Postagem
+          </label>
+          <textarea
             placeholder="Texto"
             name="conteudo"
             required
-            className="border-2 border-slate-700 rounded p-2"
+            className="border-2 border-pink-200 rounded p-2 focus:outline-none focus:border-blush-100 h-32 resize-none"
             value={postagem.conteudo}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+            onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+              setPostagem({ ...postagem, conteudo: e.target.value })
+            }
           />
         </div>
         <div className="flex flex-col gap-2">
-          <p>Tema da Postagem</p>
+          <p className="text-gray font-semibold">Tema da Postagem</p>
           <select
             name="tema"
             id="tema"
-            className="border p-2 border-slate-800 rounded"
+            className="border-2 border-pink-200 rounded p-2 focus:outline-none focus:border-blush-100"
             onChange={(e) => buscarTemaPorId(e.currentTarget.value)}
           >
             <option value="" selected disabled>
               Selecione um Tema
             </option>
             {temas.map((tema) => (
-              <>
-                <option value={tema.id}>{tema.descricao}</option>
-              </>
+              <option key={tema.id} value={tema.id}>
+                {tema.descricao}
+              </option>
             ))}
           </select>
         </div>
         <button
           type="submit"
-          className="rounded disabled:bg-slate-200 bg-indigo-400 hover:bg-indigo-800
-                               text-white font-bold w-1/2 mx-auto py-2 flex justify-center"
+          className="rounded disabled:bg-rose-200 bg-blush-100 hover:bg-blush-50
+                               text-white font-bold w-full py-3 flex justify-center transition-colors"
           disabled={carregandoTema}
         >
           {isLoading ? (

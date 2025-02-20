@@ -71,26 +71,30 @@ function DeletarTema() {
   }
 
   return (
-    <div className="container w-1/3 mx-auto">
-      <h1 className="text-4xl text-center my-4">Deletar tema</h1>
-      <p className="text-center font-semibold mb-4">
+    <div className="min-h-[85vh] bg-rose-50 flex flex-col items-center justify-center p-6">
+      <h1 className="text-4xl text-purple font-bold text-center mb-8">
+        Deletar Tema
+      </h1>
+      <p className="text-center text-gray-600 mb-6">
         Você tem certeza de que deseja apagar o tema a seguir?
       </p>
-      <div className="border flex flex-col rounded-2xl overflow-hidden justify-between">
-        <header className="py-2 px-6 bg-indigo-600 text-white font-bold text-2xl">
+
+      <div className="w-full max-w-2xl bg-rose-100 rounded-lg shadow-lg overflow-hidden">
+        <header className="py-4 px-6 bg-pink-100 text-purple font-bold text-2xl text-center">
           Tema
         </header>
-        <p className="p-8 text-3xl bg-slate-200 h-full">{tema.descricao}</p>
+        <p className="p-8 text-gray-600 text-2xl bg-rose-50 text-center">
+          {tema.descricao}
+        </p>
         <div className="flex">
           <button
-            className="text-slate-100 bg-red-400 hover:bg-red-600 w-full py-2"
+            className="flex-1 bg-blush-100 hover:bg-blush-50 text-white font-bold py-3 transition-colors"
             onClick={retornar}
           >
-            Não
+            Não, voltar
           </button>
           <button
-            className="w-full text-slate-100 bg-indigo-400 
-                                   hover:bg-indigo-600 flex items-center justify-center"
+            className="flex-1 bg-danger hover:bg-danger-100 text-white font-bold py-3 flex items-center justify-center transition-colors"
             onClick={deletarTema}
           >
             {isLoading ? (
@@ -102,7 +106,7 @@ function DeletarTema() {
                 visible={true}
               />
             ) : (
-              <span>Sim</span>
+              <span>Sim, deletar</span>
             )}
           </button>
         </div>
@@ -110,4 +114,5 @@ function DeletarTema() {
     </div>
   );
 }
+
 export default DeletarTema;

@@ -3,7 +3,7 @@ import "../cadastro/Cadastro.css";
 import UsuarioLogin from "../../models/UsuarioLogin";
 import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
-import { RotatingLines } from "react-loader-spinner";
+import { Puff } from "react-loader-spinner";
 
 function Login() {
   const navigate = useNavigate();
@@ -32,38 +32,41 @@ function Login() {
     handleLogin(usuarioLogin);
   }
 
-  console.log(JSON.stringify(usuarioLogin));
-
   return (
-    <>
-      <div className="grid grid-cols-1 lg:grid-cols-2 h-screen place-items-center font-bold">
-        <form
-          onSubmit={login}
-          className="flex justify-center items-center flex-col w-1/2 gap-4"
-        >
-          <h2 className="text-blush-100 text-5xl">Entrar</h2>
-          <div className="flex flex-col w-full">
-            <label htmlFor="usuario">Usuario</label>
+    <div className="min-h-[85vh] bg-rose-50 flex items-center justify-center p-6">
+      <div className="w-full max-w-2xl bg-rose-100 rounded-lg shadow-lg p-8">
+        <form onSubmit={login} className="flex flex-col gap-6">
+          <h2 className="text-purple text-4xl font-bold text-center">
+            Entrar
+          </h2>
+
+          <div className="flex flex-col gap-2">
+            <label htmlFor="usuario" className="text-gray-600 font-semibold">
+              Usuário
+            </label>
             <input
               type="text"
               id="usuario"
               name="usuario"
-              placeholder="Usuario"
-              className="border-2 border-gray-50 rounded p-2"
+              placeholder="Digite seu usuário"
+              className="border-2 border-pink-200 rounded-lg p-3 focus:outline-none focus:border-blush-100"
               value={usuarioLogin.usuario}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 atualizarEstado(e)
               }
             />
           </div>
-          <div className="flex flex-col w-full">
-            <label htmlFor="senha">Senha</label>
+
+          <div className="flex flex-col gap-2">
+            <label htmlFor="senha" className="text-gray-600 font-semibold">
+              Senha
+            </label>
             <input
               type="password"
               id="senha"
               name="senha"
-              placeholder="Senha"
-              className="border-2 border-gray-50 rounded p-2"
+              placeholder="Digite sua senha"
+              className="border-2 border-pink-200 rounded-lg p-3 focus:outline-none focus:border-blush-100"
               value={usuarioLogin.senha}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 atualizarEstado(e)
@@ -73,36 +76,39 @@ function Login() {
 
           <button
             type="submit"
-            className="rounded bg-pink-50 flex justify-center hover:bg-blush-50 text-purple w-1/2 py-2 px-5"
+            className="rounded-lg bg-blush-100 hover:bg-blush-50 text-white font-bold py-3 transition-colors"
+            disabled={isLoading}
           >
-            {isLoading ? (
-              <RotatingLines
-                strokeColor="white"
-                strokeWidth="5"
-                animationDuration="0.75"
+            <div className="flex justify-center items-center">
+              {isLoading ? (
+              <Puff
+                height="24"
                 width="24"
+                color="#ffffff"
+                ariaLabel="puff-loading"
                 visible={true}
               />
             ) : (
               <span>Entrar</span>
             )}
+            </div>
+            
           </button>
 
-          <hr className="border-gray w-full" />
+          <hr className="border-pink-200" />
 
-          <p>
+          <p className="text-center text-gray-600">
             Ainda não tem uma conta?{" "}
             <Link
               to="/cadastro"
-              className="text-blue hover:text-blush-100 hover:underline"
+              className="text-purple hover:text-blush-100 hover:underline font-semibold"
             >
               Cadastre-se
             </Link>
           </p>
         </form>
-        <div className="fundoCadastro hidden lg:block"></div>
       </div>
-    </>
+    </div>
   );
 }
 
