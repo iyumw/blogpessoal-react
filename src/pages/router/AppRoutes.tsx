@@ -10,6 +10,7 @@ import ListaTemas from "../../components/temas/listatemas/ListaTemas";
 import Cadastro from "../cadastro/Cadastro";
 import Home from "../home/Home";
 import Login from "../login/Login";
+import Perfil from "../perfil/Perfil";
 
 
 function AppRoutes() {
@@ -33,6 +34,7 @@ function AppRoutes() {
           <Route path="/cadastrarpostagem" element={<FormPostagem />} />
           <Route path="/editarpostagem/:id" element={<FormPostagem />} />
           <Route path="/deletarpostagem/:id" element={<DeletarPostagem />} />
+          <Route path="/perfil" element={<Perfil />} />
         </Routes>
       </div>
       <Footer isFixed={!isHome} />
