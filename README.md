@@ -1,50 +1,116 @@
-# React + TypeScript + Vite
+# Personal Blog - React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a personal blog project developed with React. The goal is to create a web application where users can register, log in, create, edit, view, and delete posts and themes. This project uses a back-end API for data persistence, which can be found here: [API Repository](https://github.com/seu-usuario/repositorio-da-api).
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌟 Features
 
-## Expanding the ESLint configuration
+### 👤 Users
+- User registration (name, photo, email, and password).
+- User login via email and password.
+- Authentication for protected routes.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### 📰 Posts
+- Create, edit, delete, and view posts.
+- Display posts in a list and detailed view.
 
-- Configure the top-level `parserOptions` property like this:
+### 🌈 Themes
+- Create, edit, delete, and view themes to categorize posts.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+---
+
+## ⚙️ Technologies Used
+
+- **React**: JavaScript library for user interfaces.
+- **React Router**: Routing management in the application.
+- **Axios**: HTTP requests for the API.
+- **Tailwind CSS**: Component styling.
+
+---
+
+## 🔧 Installation & Setup
+
+### ✅ **Prerequisites**
+Make sure you have installed:
+- **Node.js** (v14 or higher)
+- **npm** or **yarn**
+
+### ⭐ **Steps to set up the project locally**
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/iyumw/blogpessoal-react.git
+   cd blogpessoal-react
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. **Set up environment variables**
+   Create a `.env` file at the root of the project and add:
+   ```bash
+   REACT_APP_API_URL=http://localhost:3000/api
+   ```
+
+4. **Start the development server**
+   ```bash
+   npm start
+   # or
+   yarn start
+   ```
+   The project will be available at: [http://localhost:3000](http://localhost:3000)
+
+---
+
+## 🌐 Project Structure
+
+```
+blogpessoal-react/
+├── public/              # Static files
+├── src/                 # Source code
+│   ├── components/      # Reusable components
+│   ├── pages/           # Application pages
+│   ├── services/        # API services
+│   ├── styles/          # Global styles
+│   ├── App.js           # Main component
+│   ├── index.js         # Entry point
+├── .env                 # Environment variables
+├── package.json         # Dependencies and scripts
+└── README.md            # Project documentation
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+---
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## 📚 Contributing
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Contributions are welcome! To contribute:
+
+1. **Fork the project.**
+2. **Create a feature branch:**
+   ```bash
+   git checkout -b feature/new-feature
+   ```
+3. **Commit your changes:**
+   ```bash
+   git commit -m 'Adding new feature'
+   ```
+4. **Push to the remote repository:**
+   ```bash
+   git push origin feature/new-feature
+   ```
+5. **Open a Pull Request.**
+
+---
+
+## 📧 Contact
+
+If you have any questions or suggestions, feel free to reach out:
+
+- **Author**: [Isis Okamoto](https://github.com/iyumw)
+- **Email**: isis.yume2508@gmail.com
+
