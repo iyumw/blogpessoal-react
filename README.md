@@ -1,6 +1,6 @@
 # Personal Blog - React
 
-This is a personal blog project developed with React. The goal is to create a web application where users can register, log in, create, edit, view, and delete posts and themes. This project uses a back-end API for data persistence, which can be found here: [API Repository](https://github.com/seu-usuario/repositorio-da-api).
+This is a personal blog project developed with React. The goal is to create a web application where users can register, log in, create, edit, view, and delete posts and themes. This project uses a back-end API for data persistence, which can be found here: [API Repository]([https://github.com/seu-usuario/repositorio-da-api](https://github.com/iyumw/blog-pessoal)).
 
 ---
 
