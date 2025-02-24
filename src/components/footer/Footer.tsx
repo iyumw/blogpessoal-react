@@ -1,7 +1,6 @@
 import { GithubLogo, InstagramLogo, LinkedinLogo } from "@phosphor-icons/react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { useContext } from "react";
-import { Link } from "react-router-dom";
 
 interface FooterProps {
   isFixed?: boolean;

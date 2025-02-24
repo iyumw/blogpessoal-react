@@ -6,6 +6,7 @@ import { cadastrarUsuario } from "../../services/Service";
 import { InputField } from "./InputField";
 import { PasswordField } from "./PasswordField";
 import { SubmitButton } from "./SubmitButton";
+import { ToastAlerta } from "../../utils/ToastAlerta";
 
 export function FormCadastro() {
   const navigate = useNavigate();
@@ -48,17 +49,17 @@ export function FormCadastro() {
 
       try {
         await cadastrarUsuario("/usuarios/cadastrar", usuario, setUsuario);
-        alert("Usuário cadastrado com sucesso!");
+        ToastAlerta("Usuário cadastrado com sucesso!", "sucesso");
       } catch (error) {
         console.error("Erro ao cadastrar usuário:", error);
-        alert(
-          "Erro ao cadastrar o Usuário. Verifique o console para mais detalhes."
+        ToastAlerta(
+          "Erro ao cadastrar o Usuário. Verifique o console para mais detalhes.", "erro"
         );
       }
 
       setIsLoading(false);
     } else {
-      alert("Senhas não conferem ou a senha precisa ter no mínimo 8 caracteres");
+      ToastAlerta("Senhas não conferem ou a senha precisa ter no mínimo 8 caracteres", "erro");
       setUsuario({ ...usuario, senha: "" });
       setConfirmarSenha("");
     }

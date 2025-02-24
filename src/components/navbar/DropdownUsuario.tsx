@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { AuthContext } from "../../contexts/AuthContext";
+import { ToastAlerta } from "../../utils/ToastAlerta";
 
 export function DropdownUsuario() {
   const navigate = useNavigate();
@@ -46,7 +47,7 @@ export function DropdownUsuario() {
 
   function logout() {
     handleLogout();
-    alert("O usuário foi desconectado com sucesso");
+    ToastAlerta('O Usuário foi desconectado com sucesso!', 'info')
     navigate("/");
   }
 

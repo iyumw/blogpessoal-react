@@ -4,6 +4,7 @@ import { AuthContext } from "../../../contexts/AuthContext";
 import Postagem from "../../../models/Postagem";
 import { buscar, deletar } from "../../../services/Service";
 import { RotatingLines } from "react-loader-spinner";
+import { ToastAlerta } from "../../../utils/ToastAlerta";
 
 function DeletarPostagem() {
   const navigate = useNavigate();
@@ -24,17 +25,20 @@ function DeletarPostagem() {
     } catch (error: any) {
       console.error("Erro ao buscar postagem:", error);
       if (error.toString().includes("403")) {
-        alert("Sua sessão expirou. Faça login novamente.");
+        ToastAlerta("Sua sessão expirou! Faça o login novamente", "info");
         handleLogout();
       } else {
-        alert("Erro ao carregar a postagem.");
+        ToastAlerta("Erro ao carregar a postagem.", "erro");
       }
     }
   }
 
   useEffect(() => {
     if (token === "") {
-      alert("Você precisa estar logado para acessar esta página.");
+      ToastAlerta(
+        "Você precisa estar logado para acessar esta página.",
+        "info"
+      );
       navigate("/login");
     }
   }, [token]);
@@ -55,15 +59,15 @@ function DeletarPostagem() {
         },
       });
 
-      alert("Postagem deletada com sucesso!");
+      ToastAlerta("Postagem deletada com sucesso!", "infor");
       navigate("/postagens"); // Redireciona após a deleção
     } catch (error: any) {
       console.error("Erro ao deletar postagem:", error);
       if (error.toString().includes("403")) {
-        alert("Sua sessão expirou. Faça login novamente.");
+        ToastAlerta("Sua sessão expirou. Faça login novamente.", "info");
         handleLogout();
       } else {
-        alert("Erro ao deletar a postagem.");
+        ToastAlerta("Erro ao deletar a postagem.", "erro");
       }
     }
 
@@ -89,55 +93,58 @@ function DeletarPostagem() {
   }
 
   return (
-    <div className="container w-full max-w-2xl mx-auto p-6 bg-rose-50 rounded-lg shadow-lg">
-      <h1 className="text-4xl text-center my-6 text-purple font-bold">
-        Deletar Postagem
-      </h1>
+    <div className="min-h-[85vh] flex items-center justify-center bg-rose-50 p-4">
+      <div className="container w-full max-w-2xl mx-auto p-6 bg-rose-50 rounded-lg shadow-lg">
+        <h1 className="text-4xl text-center my-6 text-purple font-bold">
+          Deletar Postagem
+        </h1>
 
-      <p className="text-center text-gray-600 mb-6">
-        Você tem certeza de que deseja apagar a postagem a seguir?
-      </p>
+        <p className="text-center text-gray-600 mb-6">
+          Você tem certeza de que deseja apagar a postagem a seguir?
+        </p>
 
-      <div className="border border-pink-200 rounded-lg overflow-hidden bg-rose-100">
-        <header className="py-3 px-6 bg-pink-100 text-purple font-bold text-2xl">
-          {postagem.titulo}
-        </header>
-        <div className="p-6">
-          <p className="text-gray-600 text-lg mb-4">{postagem.conteudo}</p>
-          <p className="text-gray-600">
-            <span className="font-semibold">Tema:</span> {postagem.tema?.descricao}
-          </p>
-          <p className="text-gray-600">
-            <span className="font-semibold">Data:</span>{" "}
-            {new Intl.DateTimeFormat("pt-BR", {
-              dateStyle: "full",
-              timeStyle: "short",
-            }).format(new Date(postagem.data))}
-          </p>
-        </div>
-        <div className="flex">
-          <button
-            className="flex-1 bg-blush-100 hover:bg-blush-50 text-white font-bold py-3 transition-colors"
-            onClick={retornar}
-          >
-            Não, voltar
-          </button>
-          <button
-            className="flex-1 bg-danger hover:bg-danger-100 text-white font-bold py-3 flex items-center justify-center transition-colors"
-            onClick={deletarPostagem}
-          >
-            {isLoading ? (
-              <RotatingLines
-                strokeColor="white"
-                strokeWidth="5"
-                animationDuration="0.75"
-                width="24"
-                visible={true}
-              />
-            ) : (
-              <span>Sim, deletar</span>
-            )}
-          </button>
+        <div className="border border-pink-200 rounded-lg overflow-hidden bg-rose-100">
+          <header className="py-3 px-6 bg-pink-100 text-purple font-bold text-2xl">
+            {postagem.titulo}
+          </header>
+          <div className="p-6">
+            <p className="text-gray-600 text-lg mb-4">{postagem.conteudo}</p>
+            <p className="text-gray-600">
+              <span className="font-semibold">Tema:</span>{" "}
+              {postagem.tema?.descricao}
+            </p>
+            <p className="text-gray-600">
+              <span className="font-semibold">Data:</span>{" "}
+              {new Intl.DateTimeFormat("pt-BR", {
+                dateStyle: "full",
+                timeStyle: "short",
+              }).format(new Date(postagem.data))}
+            </p>
+          </div>
+          <div className="flex">
+            <button
+              className="flex-1 bg-blush-100 hover:bg-blush-50 text-white font-bold py-3 transition-colors"
+              onClick={retornar}
+            >
+              Não, voltar
+            </button>
+            <button
+              className="flex-1 bg-danger hover:bg-danger-100 text-white font-bold py-3 flex items-center justify-center transition-colors"
+              onClick={deletarPostagem}
+            >
+              {isLoading ? (
+                <RotatingLines
+                  strokeColor="white"
+                  strokeWidth="5"
+                  animationDuration="0.75"
+                  width="24"
+                  visible={true}
+                />
+              ) : (
+                <span>Sim, deletar</span>
+              )}
+            </button>
+          </div>
         </div>
       </div>
     </div>

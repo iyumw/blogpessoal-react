@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Postagem from "../../../models/Postagem";
+import { Pencil, Trash } from "@phosphor-icons/react";
 
 interface CardPostagensProps {
   postagem: Postagem;
@@ -21,9 +22,27 @@ function CardPostagem({ postagem }: CardPostagensProps) {
           <h3 className="text-lg font-bold text-center uppercase text-gray">
             {postagem.usuario?.nome}
           </h3>
+
+          <div className="flex flex-grow justify-end gap-1">
+            <Link
+              to={`/editarpostagem/${postagem.id}`}
+              className="text-white bg-blush-100 hover:bg-blush-50
+                        flex items-center justify-center p-2 rounded-full transition duration-300 ease-in-out mr-2"
+            >
+              <Pencil size={20} />
+            </Link>
+            <Link
+              to={`/deletarpostagem/${postagem.id}`}
+              className="text-white bg-danger hover:bg-danger-100 flex items-center justify-center p-2 rounded-full transition duration-300 ease-in-out"
+            >
+              <Trash size={20} />
+            </Link>
+          </div>
         </div>
         <div className="p-4 bg-rose-100">
-          <h4 className="text-lg font-semibold uppercase text-purple">{postagem.titulo}</h4>
+          <h4 className="text-lg font-semibold uppercase text-purple">
+            {postagem.titulo}
+          </h4>
           <p className="text-gray-50">{postagem.conteudo}</p>
           <p className="text-gray-50">Tema: {postagem.tema?.descricao}</p>
           <p className="text-gray-50">
@@ -34,21 +53,6 @@ function CardPostagem({ postagem }: CardPostagensProps) {
             }).format(new Date(postagem.data))}
           </p>
         </div>
-      </div>
-      <div className="flex">
-        <Link
-          to={`/editarpostagem/${postagem.id}`}
-          className="w-full text-slate-100 bg-blush-100 hover:bg-blush-50 
-    flex items-center justify-center py-2"
-        >
-          <button>Editar</button>
-        </Link>
-        <Link
-          to={`/deletarpostagem/${postagem.id}`}
-          className="text-white bg-danger hover:bg-danger-100 w-full flex items-center justify-center"
-        >
-          <button>Deletar</button>
-        </Link>
       </div>
     </div>
   );
